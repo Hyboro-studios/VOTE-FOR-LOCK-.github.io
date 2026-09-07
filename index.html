@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Black+Ops+One&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="LOCK.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portfolio</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: 'Black Ops One', cursive;
+        margin: 0;
+        padding: 40px 20px;
+        background-color: #000000;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Entrance Fade Animation */
+      .fade-in {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        animation: fadeIn 1.2s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1, h2 {
+        color: #ffffff;
+        text-align: center;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px rgba(207, 170, 255, 0.5);
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+        word-wrap: break-word;
+      }
+
+      p {
+        color: #cfaaff;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 20px auto;
+        line-height: 1.5;
+        font-size: clamp(0.85rem, 2.5vw, 1rem);
+        word-wrap: break-word;
+      }
+
+      /* Simple Lock Image Div Container */
+      .lock-image-container {
+        width: 100%;
+        max-width: clamp(130px, 30vw, 200px);
+        margin: 30px auto;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .lock-image-container:hover {
+        transform: scale(1.05);
+      }
+
+      .lock-image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        filter: drop-shadow(0 0 15px rgba(255, 51, 51, 0.6));
+        transition: filter 0.4s ease, transform 0.4s ease;
+      }
+
+      /* Simple pulse and glow when unlocked (no rotation) */
+      .lock-image-container.unlocked img {
+        filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.8));
+        transform: scale(1.05);
+      }
+
+      .lock-caption {
+        font-size: clamp(0.75rem, 2vw, 0.85rem);
+        color: #ff8080;
+        margin-top: 12px;
+        letter-spacing: 1px;
+        animation: pulseText 1.5s infinite alternate;
+        display: block;
+      }
+
+      @keyframes pulseText {
+        from { opacity: 0.5; }
+        to { opacity: 1; }
+      }
+
+      /* Mission Box */
+      .projects {
+        background-color: #290000;
+        padding: clamp(15px, 4vw, 25px);
+        margin: 30px auto;
+        width: 100%;
+        max-width: 800px;
+        border-radius: 8px;
+        border: 1px solid #ff000033;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .projects:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+      }
+
+      .team-list {
+        text-align: center;
+        margin-bottom: 30px;
+        width: 100%;
+      }
+
+      .team-list p {
+        margin: 8px auto;
+        transition: color 0.3s ease;
+      }
+
+      .team-list p:hover {
+        color: #ffffff;
+      }
+
+      /* Mobile Device Adjustments */
+      @media (max-width: 600px) {
+        body {
+          padding: 20px 12px;
+        }
+
+        .lock-image-container {
+          margin: 20px auto;
+        }
+
+        .projects {
+          margin: 20px auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="fade-in">
+      <h1>ABOUT ME</h1>
+      <p>I'M AMEER MUSTAFA AND HERE I PRESENT MYSELF TO GIVE YOURSELF A CHANCE TO REDEEM YOURSELF SO CHEER UP AND VOTE FOR LOCK!</p>
+      
+      <!-- Simple Interactive Lock Image Container -->
+      <div class="lock-image-container" id="lockDiv" onclick="toggleLockImage()">
+        <img id="lockImg" src="LOCK.png" alt="Lock Icon">
+        <span class="lock-caption" id="lockStatus">CLICK LOCK TO VOTE</span>
+      </div>
+
+      <h1>OUR TEAM</h1>
+      <div class="team-list">
+        <p><strong>LEADER:</strong> AMEER MUSTAFA</p> 
+        <p><strong>CAMPAIGN MANAGER:</strong> WASI HAIDER</p> 
+        <p><strong>IT TEAM:</strong> WASI HAIDER</p>
+      </div>
+
+      <div class="projects">
+        <h1>OUR MISSION</h1>
+        <p>OUR MISSION IS TO MAKE THE SCHOOL A BETTER PLACE FOR YOU GUYS AND ENJOY IT AS YOURSELF!</p>
+      </div>
+    </div>
+
+    <script>
+      let isUnlocked = false;
+
+      function toggleLockImage() {
+        const lockDiv = document.getElementById('lockDiv');
+        const lockStatus = document.getElementById('lockStatus');
+
+        isUnlocked = !isUnlocked;
+
+        if (isUnlocked) {
+          lockDiv.classList.add('unlocked');
+          lockStatus.innerText = 'VOTE LOCKED IN!';
+          lockStatus.style.color = '#00ff88';
+        } else {
+          lockDiv.classList.remove('unlocked');
+          lockStatus.innerText = 'CLICK LOCK TO VOTE';
+          lockStatus.style.color = '#ff8080';
+        }
+      }
+    </script>
+  </body>
+</html>
